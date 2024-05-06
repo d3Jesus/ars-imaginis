@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import ImageCard from "./components/ImageCard";
+import ImageCard from "../components/ImageCard";
 
 export default function Home() {
 	return (
