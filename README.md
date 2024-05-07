@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Ars-Imaginis
+An AI-Powered Image Generator. Creating images from scratch based on a text prompt.
 
-## Getting Started
+## Table of Contents
 
-First, run the development server:
+- [Overview](#overview)
+  - [Built With](#built-with)
+- [How to use](#how-to-use)
+- [How to Contribute](#how-to-contribute)
+- [Author](#author)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Desktop View
+![Desktop-View](https://github.com/d3Jesus/ars-imaginis/blob/master/public/overview/DesktopView.png)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Mobile View
+![Mobile-View](https://github.com/d3Jesus/ars-imaginis/blob/master/public/overview/MobileView.png)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Built with
 
-## Learn More
+* [NextJs 14](https://nextjs.org/docs)
+* [Shadcn](https://ui.shadcn.com/docs)
+* [OpenAI Image Generator](https://platform.openai.com/docs/guides/images/introduction)
 
-To learn more about Next.js, take a look at the following resources:
+## Contributing
+Anyone can contribute to this project. It was developed or created with the intention of learning .Net Core and PostgreSQL technologies. Feel free to add, refactor or modify anything you think is or will be useful, from a small typo to an algorithm improvement or even a suggestion. If you are a adding something new, please be sure to add it to the right folder.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## How to Use
+1. With the project on your machine, create the .env file
+2. In that file, create the variable `OPENAI_API_KEY` and paste your api key.
+3. In the terminal, run npm run dev
+4. Start using by typing your prompt.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## How to contribute
+1. Fork this repository(Top right side)
+2. Clone your forked repository
+   <br />For example, run this command in your terminal/command prompt:
+   ```
+   git clone https://github.com/<your-github-username>/ars-imaginis.git
+   ```
+   
+3. Install all dependencies
+4. Make your changes with `git add` and `git commit`. **Note:** Please write good commit messages.
+5. Run this command to push your changes to your forked repository:
+   ```
+   git push origin master
+   ```
+6. Go to the Github page of your fork and make a pull request.
 
-## Deploy on Vercel
+## Author
+- [Yuran de Jesus](https://github.com/d3Jesus)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
