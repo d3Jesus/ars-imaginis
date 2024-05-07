@@ -1,10 +1,48 @@
+'use client';
+
+import * as z from "zod";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import ImageCard from "../components/ImageCard";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+
+import { formSchema } from "./constants";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import Empty from "@/components/Empty";
+import { Download } from "lucide-react";
+import axios from "axios";
 
 export default function Home() {
+
+	const [images, setImages] = useState<string[]>([]);
+	const form = useForm<z.infer<typeof formSchema>>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			prompt: ""
+		}
+	});
+
+	const isLoading = form.formState.isSubmitting;
+
+	const onSubmit = async (values: z.infer<typeof formSchema>) => {
+
+		try {
+			setImages([]);
+			const response = await axios.post('/api/image', values);
+
+			const urls = response.data.map((image: { url: string }) => image.url);
+
+			setImages(urls);
+
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
 	return (
 		<Card className="container content-center shadow-xl">
 			<CardHeader>
@@ -14,27 +52,45 @@ export default function Home() {
 				<CardDescription className="text-center">Transform your ideas into visuals with our AI-powered image generator tool!</CardDescription>
 			</CardHeader>
 			<CardContent>
-				<form>
-					<div className="flex flex-row max-sm:flex-col space-y-1.5">
-						<Input id="prompt" placeholder="type your prompt here..." />
+				<Form {...form}>
+					<form onSubmit={form.handleSubmit(onSubmit)}
+						className=" rounded-lg border w-full p-2 px-3 md:px-6 focus-within:shadow-sm grid grid-cols-12 gap-2"
+					>
+						<FormField
+							name="prompt"
+							render={({ field }) => (
+								<FormItem className="col-span-12 lg:col-span-10">
+									<FormControl className="m-0 p-0">
+										<Input
+											id="prompt"
+											placeholder="A photograph of a white Siamese cat."
+											className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
+											disabled={isLoading}
+											{...field}
+										/>
 
-						<Button variant="outline" className="bg-purple text-white ml-2 rounded-[50px]">Generate</Button>
-					</div>
-				</form>
+									</FormControl>
+								</FormItem>
+							)}
+						>
+						</FormField>
+						<Button
+							variant="outline"
+							className="col-span-12 lg:col-span-2  w-full bg-purple text-white ml-2 rounded-[50px]"
+							disabled={isLoading}>
+							Generate
+						</Button>
+					</form>
+				</Form>
 
-				<div className="flex justify-center items-center object-contain mt-2">
-					<Image
-						src="/type.png"
-						alt="prompt image"
-						width={320}
-						height={320}
-						className="object-contain" />
-				</div>
-
-				<p className="text-center mt-4 text-muted-foreground">No result!</p>
+				{images.length === 0 && !isLoading && (
+					<Empty />
+				)}
 
 				<div className="grid 2xl:grid-cols-4 xl:grid-cols-4 md:grid-cols-2 grid-cols-1 w-full gap-8 mt-3">
-					<ImageCard />
+					{images.map((url) => (
+						<ImageCard imageUrl={url} />
+					))}
 				</div>
 			</CardContent>
 		</Card>
